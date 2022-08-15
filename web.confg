@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <staticContent>
+            <!-- 用于允许json文件加载 -->
+            <mimeMap fileExtension=".json" mimeType="text/json" />
+        </staticContent>
+    </system.webServer>
+</configuration>
