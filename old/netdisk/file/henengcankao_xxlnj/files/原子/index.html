@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>原子内部运动演示</title>
+<style>
+body {
+    margin: 0;
+}
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+}
+#instructions {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    font-weight: 900;
+    padding: 15px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #2fa1d6;
+    transition: all .5s;
+    transform: translate(0, 0);
+}
+#instructions.hide {
+    transform: translate(0, -100%);
+}
+#instructions > i {
+    margin-left: 9px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+<script src="js/jquery-1.11.1.min.js"></script>
+<canvas id="trails"></canvas>
+<canvas id="particles"></canvas>
+
+<!-- leave a heart if you like this pen :) -->
+<script>
+"use strict";
+
+function _possibleConstructorReturn(self, call) {
+    if (!self) {
+        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    }
+    return call && (typeof call === "object" || typeof call === "function") ? call : self;
+}
+
+function _inherits(subClass, superClass) {
+    if (typeof superClass !== "function" && superClass !== null) {
+        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+    }
+    subClass.prototype = Object.create(superClass && superClass.prototype, {
+        constructor: {
+            value: subClass,
+            enumerable: false,
+            writable: true,
+            configurable: true
+        }
+    });
+    if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+
+//vector class
+
+var Vector = function() {
+    function Vector() {
+        var x = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+        var y = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
+
+        _classCallCheck(this, Vector);
+
+        this.x = x;
+        this.y = y;
+        this.magnitude = Math.sqrt(x * x + y * y);
+        this.angle = Math.atan2(y, x);
+    }
+
+    Vector.prototype.add = function add(v) {
+        this.x = this.x + v.x;
+        this.y = this.y + v.y;
+        this.magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+        this.angle = Math.atan2(this.y, this.x);
+        return this;
+    };
+
+    Vector.prototype.subtract = function subtract(v) {
+        this.x = this.x - v.x;
+        this.y = this.y - v.y;
+        this.magnitude = Math.sqrt(this.x * this.x + this.y * this.y);
+        this.angle = Math.atan2(this.y, this.x);
+        return this;
+    };
+
+    Vector.prototype.setAngle = function setAngle(angle) {
+        this.angle = angle;
+        this.x = this.magnitude * Math.cos(angle);
+        this.y = this.magnitude * Math.sin(angle);
+        return this;
+    };
+
+    Vector.prototype.setMagnitude = function setMagnitude(magnitude) {
+        this.magnitude = magnitude;
+        this.x = Math.cos(this.angle) * magnitude;
+        this.y = Math.sin(this.angle) * magnitude;
+        return this;
+    };
+
+    return Vector;
+}();
+
+//particle class
+
+var Particle = function() {
+    function Particle(opts) {
+        _classCallCheck(this, Particle);
+
+        this.x = opts.x || Math.random() * cW;
+        this.y = opts.y || Math.random() * cH;
+        this.radius = opts.radius || 15;
+        this.v = opts.v || new Vector();
+        this.acc = opts.acc || new Vector();
+        this.mass = opts.mass || 40;
+        this.color = opts.color || 320;
+        this.maxV = opts.maxV || 8;
+        this.maxA = opts.maxA || 0.5;
+        this.tasteTheRainbow = opts.tasteTheRainbow || false;
+        if (opts.trail) {
+            this.trail = true;
+            this.trailLength = opts.trailLength || 10;
+            this.trajPoints = new Queue([]);
+        }
+    }
+
+    Particle.prototype.accelerate = function accelerate() {
+        this.acc.magnitude = this.acc.magnitude > this.maxA ? this.acc.setMagnitude(this.maxA) : this.acc.magnitude;
+        this.v.add(this.acc);
+    };
+
+    Particle.prototype.isOnScreen = function isOnScreen() {
+        return this.x <= cW || this.x >= 0 || this.y <= cH || this.y >= 0;
+    };
+
+    Particle.prototype.update = function update() {
+        if (this.acc.magnitude) {
+            this.accelerate();
+        }
+        if (this.trail) {
+            var point = {
+                x: this.x,
+                y: this.y
+            };
+            this.trajPoints.enqueue(point);
+            if (this.trajPoints.getLength() >= this.trailLength) {
+                this.trajPoints.dequeue();
+            }
+        }
+        this.v.magnitude = this.v.magnitude > this.maxV ? this.v.setMagnitude(this.maxV) : this.v.magnitude;
+        this.x += this.v.x;
+        this.y += this.v.y;
+        if (this.tasteTheRainbow) {
+            this.color = this.color <= 360 ? ++this.color : 1;
+        }
+    };
+
+    Particle.prototype.render = function render(context) {
+        var trailContext = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+        context.beginPath();
+        context.fillStyle = "hsl(" + this.color + ", 100%, 50%)";
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        context.fill();
+        context.closePath();
+        if (this.trail && trailContext) {
+            var trajectory = this.trajPoints;
+            trailContext.beginPath();
+            trailContext.strokeStyle = "hsl(" + this.color + ", 100%, 50%)";
+            trailContext.lineWidth = 0.2;
+            trailContext.moveTo(trajectory.queue[0].x, trajectory.queue[0].y);
+            for (var i = 1, len = trajectory.getLength(); i < len; i++) {
+                trailContext.lineTo(trajectory.queue[i].x, trajectory.queue[i].y);
+            }
+            trailContext.stroke();
+            trailContext.closePath();
+        }
+    };
+
+    return Particle;
+}();
+
+var Planet = function(_Particle) {
+    _inherits(Planet, _Particle);
+
+    function Planet() {
+        _classCallCheck(this, Planet);
+
+        return _possibleConstructorReturn(this, _Particle.apply(this, arguments));
+    }
+
+    Planet.prototype.gravitate = function gravitate(p) {
+        if (Particle.prototype.isPrototypeOf(p)) {
+            var d = Math.sqrt((this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y));
+            var attractiveForce = p.mass * this.mass / (d * d);
+            this.acc.setAngle(Math.atan2(p.y - this.y, p.x - this.x)).setMagnitude(attractiveForce);
+        } else {
+            throw new Error("The argument passed to the gravitate function must be a particle");
+        }
+        this.update();
+    };
+
+    Planet.prototype.gravitateStarCluster = function gravitateStarCluster(cluster) {
+        var gV = new Vector();
+        for (var i = 0; i < cluster.length; i++) {
+            var _star = cluster[i];
+            if (Particle.prototype.isPrototypeOf(_star)) {
+                var v = new Vector();
+                var d = Math.sqrt((this.x - _star.x) * (this.x - _star.x) + (this.y - _star.y) * (this.y - _star.y));
+                var attractiveForce = _star.mass * this.mass / (d * d);
+                v.setAngle(Math.atan2(_star.y - this.y, _star.x - this.x)).setMagnitude(attractiveForce);
+                gV = gV.add(v);
+            } else {
+                throw new Error("The argument supplied to the gravitateStarCluster function must be an array of particles");
+            }
+        }
+        this.acc.setAngle(gV.angle).setMagnitude(gV.magnitude);
+        this.update();
+    };
+
+    return Planet;
+}(Particle);
+
+var Queue = function() {
+    function Queue(array) {
+        _classCallCheck(this, Queue);
+
+        this.queue = array;
+    }
+
+    Queue.prototype.getLength = function getLength() {
+        return this.queue.length;
+    };
+
+    Queue.prototype.enqueue = function enqueue(element) {
+        this.queue.unshift(element);
+    };
+
+    Queue.prototype.dequeue = function dequeue() {
+        this.queue.pop();
+    };
+
+    Queue.prototype.display = function display() {
+        for (var i = 0; i < this.getLength; i++) {
+            console.log(this.queue[i]);
+        }
+    };
+
+    return Queue;
+}();
+
+//util function to paint entire canvas of specified color
+
+function paintCanvas(color, context) {
+    var W = context.canvas.clientWidth;
+    var H = context.canvas.clientHeight;
+    context.save();
+    context.fillStyle = color;
+    context.fillRect(0, 0, W, H);
+    context.restore();
+}
+
+//util function that returns a random number in a given range
+function randomInRange(min, max) {
+    var result = min + Math.random() * (max - min);
+    return result;
+}
+
+//////////////////////////////////////
+// -- THIS ANIMATION'S VARIABLES -- //
+//////////////////////////////////////
+
+//canvas
+var trailCanvas = document.getElementById('trails');
+var particlesCanvas = document.getElementById('particles');
+var trailCtx = trailCanvas.getContext('2d');
+var particleCtx = particlesCanvas.getContext('2d');
+
+var cW = particlesCanvas.width = trailCanvas.width = window.innerWidth;
+var cH = particlesCanvas.height = trailCanvas.height = window.innerHeight;
+
+//animation constants
+var settings = {
+
+    STAR_MASS: 1500,
+    PLANET_MASS: 20,
+    PLANET_V_X: 2,
+    P_TRAIL: true,
+    P_MAX_VELOCITY: 8,
+    P_MAX_ACC: 0.5,
+    P_MIN_VELOCITY: 5,
+    PARTICLE_NUM: 70,
+    BOUNDS: false,
+    TRAIL_LENGTH: 90,
+    TRAIL_CNVS: trailCanvas,
+    PARTICLE_CNVS: particlesCanvas,
+    COLOR: 320,
+    TRAIL_CTXT: trailCtx,
+    TASTETHERAINBOW: true,
+    PARTICLE_CTXT: particleCtx
+
+};
+
+window.addEventListener('resize', function() {
+    cW = particlesCanvas.width = trailCanvas.width = window.innerWidth;
+    cH = particlesCanvas.height = trailCanvas.height = window.innerHeight;
+});
+
+//mouse events and stuff
+var mX = -1;
+var mY = -1;
+var draggingStar = false;
+
+document.addEventListener('mousemove', function(e) {
+    mX = e.clientX;
+    mY = e.clientY;
+});
+
+settings.PARTICLE_CNVS.addEventListener('click', function() {
+    draggingStar = !draggingStar;
+});
+
+//stars and particles
+var s = [];
+var p = [];
+
+var star = new Particle({
+    x: cW / 2,
+    y: cH / 2,
+    radius: 15,
+    color: settings.COLOR,
+    tasteTheRainbow: settings.TASTETHERAINBOW,
+    mass: settings.STAR_MASS
+});
+
+for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+
+    var planet = new Planet({
+        x: Math.random() * cW,
+        y: Math.random() * cH,
+        radius: 2,
+        mass: settings.PLANET_MASS,
+        trail: settings.P_TRAIL,
+        trailLength: settings.TRAIL_LENGTH,
+        color: settings.COLOR,
+        maxV: settings.P_MAX_VELOCITY,
+        maxA: settings.P_MAX_ACC,
+        tasteTheRainbow: settings.TASTETHERAINBOW,
+        v: new Vector(Math.random() < 0.5 ? -settings.P_MIN_VELOCITY : settings.P_MIN_VELOCITY, 0)
+    });
+
+    p.push(planet);
+}
+
+//animation function
+function animate() {
+
+    settings.PARTICLE_CTXT.clearRect(0, 0, cW, cH);
+
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    paintCanvas('black', settings.TRAIL_CTXT);
+
+    star.update();
+    star.render(settings.PARTICLE_CTXT);
+
+    for (var i = 0; i < p.length; i++) {
+        p[i].gravitate(star);
+        if (settings.BOUNDS) {
+            if (p[i].x > cW) {
+                p[i].x = cW;
+            }
+            if (p[i].x < 0) {
+                p[i].x = 0;
+            }
+            if (p[i].y > cH) {
+                p[i].y = cH;
+            }
+            if (p[i].y < 0) {
+                p[i].y = 0;
+            }
+        }
+        if (p[i].isOnScreen()) {
+            p[i].render(settings.PARTICLE_CTXT, settings.TRAIL_CTXT);
+        }
+    }
+
+    if (draggingStar) {
+        star.x += (mX - star.x) * 0.1;
+        star.y += (mY - star.y) * 0.1;
+    }
+
+    requestAnimationFrame(animate);
+}
+
+//start loop!
+animate();
+
+//datgui thangs
+var gui = new dat.GUI();
+gui.add(settings, 'STAR_MASS', 500, 10000).name('star mass').onFinishChange(function() {
+    star.mass = settings.STAR_MASS;
+});
+gui.add(settings, 'P_TRAIL').name('particle trail').onFinishChange(function() {
+    p = [];
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+        var planet = new Planet({
+            x: Math.random() * cW,
+            y: Math.random() * cH,
+            radius: 2,
+            mass: settings.PLANET_MASS,
+            trail: settings.P_TRAIL,
+            trailLength: settings.TRAIL_LENGTH,
+            color: settings.COLOR,
+            maxV: settings.P_MAX_VELOCITY,
+            maxA: settings.P_MAX_ACC,
+            tasteTheRainbow: settings.TASTETHERAINBOW,
+            v: new Vector(Math.random() < 0.5 ? -settings.P_MIN_VELOCITY : settings.P_MIN_VELOCITY, 0)
+        });
+        p.push(planet);
+    }
+    star.color = settings.COLOR;
+});
+gui.add(settings, 'P_MAX_VELOCITY', 4, 14).name('max velocity').onFinishChange(function() {
+    p = [];
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+        var planet = new Planet({
+            x: Math.random() * cW,
+            y: Math.random() * cH,
+            radius: 2,
+            mass: settings.PLANET_MASS,
+            trail: settings.P_TRAIL,
+            trailLength: settings.TRAIL_LENGTH,
+            color: settings.COLOR,
+            maxV: settings.P_MAX_VELOCITY,
+            maxA: settings.P_MAX_ACC,
+            tasteTheRainbow: settings.TASTETHERAINBOW,
+            v: new Vector(Math.random() < 0.5 ? -settings.P_MIN_VELOCITY : settings.P_MIN_VELOCITY, 0)
+        });
+        p.push(planet);
+    }
+    star.color = settings.COLOR;
+});
+gui.add(settings, 'P_MAX_ACC', 0.2, 2).name('max acceleration').onFinishChange(function() {
+    p = [];
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+        var planet = new Planet({
+            x: Math.random() * cW,
+            y: Math.random() * cH,
+            radius: 2,
+            mass: settings.PLANET_MASS,
+            trail: settings.P_TRAIL,
+            trailLength: settings.TRAIL_LENGTH,
+            color: settings.COLOR,
+            maxV: settings.P_MAX_VELOCITY,
+            maxA: settings.P_MAX_ACC,
+            tasteTheRainbow: settings.TASTETHERAINBOW,
+            v: new Vector(Math.random() < 0.5 ? -settings.P_MIN_VELOCITY : settings.P_MIN_VELOCITY, 0)
+        });
+        p.push(planet);
+    }
+    star.color = settings.COLOR;
+});
+gui.add(settings, 'PARTICLE_NUM', 1, 250).name('particles number').onFinishChange(function() {
+    p = [];
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+        var planet = new Planet({
+            x: Math.random() * cW,
+            y: Math.random() * cH,
+            radius: 2,
+            mass: settings.PLANET_MASS,
+            trail: settings.P_TRAIL,
+            trailLength: settings.TRAIL_LENGTH,
+            color: settings.COLOR,
+            maxV: settings.P_MAX_VELOCITY,
+            maxA: settings.P_MAX_ACC,
+            tasteTheRainbow: settings.TASTETHERAINBOW,
+            v: new Vector(Math.random() < 0.5 ? -settings.P_MIN_VELOCITY : settings.P_MIN_VELOCITY, 0)
+        });
+        p.push(planet);
+    }
+    star.color = settings.COLOR;
+});
+gui.add(settings, 'BOUNDS').name('bounds');
+gui.add(settings, 'TRAIL_LENGTH', 10, 200).name('trail length').onFinishChange(function() {
+    settings.TRAIL_CTXT.clearRect(0, 0, cW, cH);
+    for (var i = 0; i < settings.PARTICLE_NUM; i++) {
+        p[i].trajPoints = new Queue([]);
+        p[i].trailLength = settings.TRAIL_LENGTH;
+    }
+});
+
+//for debugging without printing stuff 1000000000 times in the console
+//window.setInterval(function(){ console.log(); }, 2000);
+
+//instructions panel script
+var instructionsPanel = document.querySelector('#instructions');
+var closeButton = document.querySelector('#instructions > i');
+
+closeButton.addEventListener('click', function() {
+    instructionsPanel.classList.add('hide');
+});
+</script>
+<!底部小字版权声明>
+<style type="text/css">
+            body {
+                padding: 0;
+                margin: 0 auto;
+            }
+
+            #footer {
+                height: 40px;
+                line-height: 40px;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                background: #333;
+                color: #fff;
+                font-family: Arial;
+                font-size: 12px;
+                letter-spacing: 1px;
+            }
+
+            .content {
+                height: 1800px;
+                width: 100%;
+                text-align: center;
+            }
+        </style>
+
+<div id="footer">Copyright © 2021 www.minesite.xyz——Michael's lab. All rights reserved. 
+ </div>
+</body>
+</html>

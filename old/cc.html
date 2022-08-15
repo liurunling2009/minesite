@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>防CC刷新攻击中,5秒后跳转首页</title>
+<meta http-equiv="refresh" content="5;url=/" />
+<style>*{box-sizing:inherit;}body{min-height:100vh;display:flex;justify-content:center;align-items:center;background:#151924;padding:0;margin:0;}.loading{--color:#F5F9FF;--duration:2000ms;font-family:Roboto,Arial;font-size:24px;position:relative;white-space:nowrap;user-select:none;color:var(--color);}.loading span{--x:0;--y:0;--move-y:0;--move-y-s:0;--delay:0ms;display:block;position:absolute;top:0;left:0;width:1px;text-indent:calc(var(--x) * -1);overflow:hidden;transform:translate(var(--x),var(--y));}.loading.start div{opacity:0;}.loading.start span{animation:move var(--duration) ease-in-out var(--delay);}@keyframes move{30%{transform:translate(var(--x),var(--move-y));}82%{transform:translate(var(--x),var(--move-y-s));}</style>
+</head>
+<body>
+<div class="loading">防CC刷新攻击中,5秒后跳转首页</div><br>
+    <script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+    <script type="text/javascript">
+$(document).ready(function(){let loading=$('.loading').wrapInner('<div></div>'),min=20,max=70,minMove=10,maxMove=20;startAnimation(loading);loading.on('animationend webkitAnimationEnd oAnimationEnd','span:last-child',e=>{startAnimation(loading)});function setCSSVars(elem,min,max,minMove,maxMove){let width=Math.ceil(elem.width()),text=elem.text();for(let i=1;i<width;i++){let num=Math.floor(Math.random()*(max-min+1))+min,numMove=Math.floor(Math.random()*(maxMove-minMove+1))+minMove,dir=(i%2==0)?1:-1,spanCurrent=elem.find('span:eq('+i+')'),span=spanCurrent.length?spanCurrent:$('<span />');span.css({'--x':i-1+'px','--move-y':num*dir+'px','--move-y-s':((i%2==0)?num*dir-numMove:num*dir+numMove)+'px','--delay':i*10+'ms'});if(!spanCurrent.length){elem.append(span.text(text))}}}function startAnimation(elem){elem.removeClass('start');setCSSVars(elem,min,max,minMove,maxMove);void elem[0].offsetWidth;elem.addClass('start')}});
+</script>
+</body>
+</html>

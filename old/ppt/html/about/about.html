@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>关于</title>
+<link rel="stylesheet" href="minesite.xyz/ppt/html/about/index.css">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div class="slide-container">
+	<div class="slide" style="background:#333;color:#fff">
+		<h1>关于 刘润凌的网站——http://www.minesite.xyz/</h1>
+	</div>
+	<div class="slide" style="background:#fff;color:#333">
+		<p>这是一个由刘润凌开发创建的网站</p>
+		<div class="box box1"></div>
+		<div class="box box2"></div>
+		<div class="box box3"></div>
+	</div>
+	<div class="slide" style="background:#336;color:#fff">
+		<p>此站点已被必应（www.bing.com）收录！</p>
+		<div class="col col-1"></div>
+		<div class="col col-2"></div>
+		<div class="col col-3"></div>
+		<div class="col col-4"></div>
+		<div class="col col-5"></div>
+	</div>
+	<div class="slide" style="background:#000;color:#fff">
+		<div class="end">THE END</div>
+	</div>
+</div>
+<button id="btn-autonav">Start</button>
+<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+<script src="../index.js"></script>
+<script>
+$(function () {
+    var slider = new Slider({
+        autoNavInterval: 3000
+    })
+    var autonav = false
+    $('#btn-autonav').on('click', function () {
+        if (autonav) {
+            slider.stopAutoNav()
+            $(this).text('Start')
+        } else {
+            slider.startAutoNav()
+            $(this).text('Stop')
+        }
+        autonav = !autonav
+    })
+
+    slider.on('beforeSlide', function (e) {
+	    console.log(e)
+    })
+
+    slider.on('slide', function (e) {
+	    console.log(e)
+    })
+})
+</script>
+</body>
+</html>

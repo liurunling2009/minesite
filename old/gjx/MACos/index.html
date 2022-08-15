@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>macintosh.js.html</title>
+  <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+  <style>
+    input[type="button"]:hover {
+      background-color: red;
+    }
+
+    input[type="button"] {
+      width: calc(100% - 40px);
+      margin: 20px;
+      height: 40px;
+      font-family: Segoue UI-MONOSPACE;
+      font-size: 22px;
+      border: 1px solid blue;
+      border-radius: 20px;
+      transition: 0.5s all;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="button" value="Fast run" onclick="location.href='index-worker.html'">
+  <input type="button" value="Slow run" onclick="location.href='index-mainthread.html'">
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<html lang="zh-CN">
+<head>
+<meta name="keywords" content="liurunling,刘润凌,minesite.xyz,minesite,刘润凌的网站">
+
+<meta name="msvalidate.01" content="5715B575B9E13D070160360E187BD045" />
+
+<title>liurunling</title>
+</head>
+<body>
+<h1>欢迎光临刘润凌的网站（Welcome to Michael's website!）</h1>
+<h2>              </h2>
+<h3> </h3>
+
+<h4>站内导航</h4>
+
+<h5>实用工具 <a href="gjx/gjx.html" target="_blank">工具箱</a></h5>
+<h5>更新日志 <a href="gxrz.html" target="_blank">本站更新日志</a></h5>
+<h5>网盘 <a href="netdisk/index.html" target="_blank">网盘</a></h5>
+<h5>展览 <a href="exhibition.html" target="_blank">展览馆</a></h5>
+<h5>游戏 <a href="game/index.html" target="_blank">游戏中心</a></h5>
+<h5>音乐欣赏 <a href="music/music.html" target="_blank">音乐厅</a></h5>
+<h5>留言板（本地） <a href="lyb.html" target="_blank">来这里，畅所欲言吧！</a></h5>
+
+<h6>搜索        <a href="http://www.baidu.com" target="_blank">百度           </a></h6>
+<h6>网址导航 <a href="http://www.hao123.com" target="_blank">hao123</a></h6>
+<h6>游戏        <a href="http://www.4399.com" target="_blank">4399           </a></h6>
+<h6>温馨提示  <a href="http://im.dingtalk.com" target="_blank">承越哥哥喊你上网课了~           </a></h6>
+
+
+<script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+<script src="https://lab.magiconch.com/nbnhhsh/nbnhhsh.user.js"></script>
+<body background="beijing_1.jpg">
+
+<script>  
+!function(){
+ function n(n,e,t){
+ return n.getAttribute(e)||t
+ }
+ function e(n){
+ return document.getElementsByTagName(n)
+ }
+ function t(){
+ var t=e("script"),o=t.length,i=t[o-1];
+ return{
+ l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","0,0,0"),n:n(i,"count",99)
+ }
+ }
+  
+ function o(){
+ a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+ c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+ }
+ function i(){
+ r.clearRect(0,0,a,c);
+ var n,e,t,o,m,l;
+ s.forEach(function(i,x){
+ for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
+ null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
+ l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
+ t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
+ }),
+ x(i)
+ }
+ var a,c,u,m=document.createElement("canvas"),
+ d=t(),l="c_n"+d.l,r=m.getContext("2d"),
+x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
+ function(n){
+ window.setTimeout(n,1e3/45)
+ },
+ w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.οnresize=o,
+ window.onmousemove=function(n){
+ n=n||window.event,y.x=n.clientX,y.y=n.clientY
+ },
+ window.onmouseout=function(){
+ y.x=null,y.y=null
+ };
+ for(var s=[],f=0;d.n>f;f++){
+ var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
+ }
+ u=s.concat([y]),
+ setTimeout(function(){i()},100) 
+ }();
+ </script>
+
+</body>
+</html>
