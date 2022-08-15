@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<head>
+<meta name="keywords" content="看吧,liurunling,刘润凌,minesite.xyz,minesite,刘润凌的网站">
+
+
+<!搜索引擎收录代码>
+<!必应>
+<meta name="msvalidate.01" content="5715B575B9E13D070160360E187BD045" />
+
+<title>看吧——刘润凌的网站</title>
+</head>
+
+<style type="text/css">
+        .top{
+    /* 设置宽度高度背景颜色 */
+    height: auto; /*高度改为自动高度*/
+    width:100%;
+    margin-left: 0;
+    background:rgb(189, 181, 181);
+    position: fixed; /*固定在顶部*/
+    top: 0;/*离顶部的距离为0*/
+    margin-bottom: 5px;
+}
+.top ul{
+    /* 清除ul标签的默认样式 */
+    width: auto;/*宽度也改为自动*/
+    list-style-type: none;
+    white-space:nowrap;
+    overflow: hidden;
+    margin-left: 5%;
+    /* margin-top: 0;          */
+    padding: 0;
+
+}
+.top li {
+    float:left; /* 使li内容横向浮动，即横向排列  */
+    margin-right:2%;  /* 两个li之间的距离*/
+    position: relative;
+    overflow: hidden;
+}
+
+.top li a{
+   /* 设置链接内容显示的格式*/
+    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+    color:white;
+    text-align: center;
+    padding: 3px;
+    overflow: hidden;
+    text-decoration: none; /* 去除下划线 */
+    
+}
+.top li a:hover{
+    /* 鼠标选中时背景变为黑色 */
+    background-color: #111;
+}
+.top ul li ul{
+    /* 设置二级菜单 */
+    margin-left: -0.2px;
+    background:rgb(189, 181, 181);
+    position: relative;
+    display: none; /* 默认隐藏二级菜单的内容 */
+
+}
+.top ul li ul li{
+    /* 二级菜单li内容的显示 */
+    
+    float:none;
+    text-align: center;
+}
+.top ul li:hover ul{
+    /* 鼠标选中二级菜单内容时 */
+    display: block;
+}
+/*body{
+    background:#eff3f5;
+}
+*/
+
+       </style>
+
+        <body>
+            <div class="top">
+                   <center> 
+                    <ul>
+                    <li><a href="../index.html"><b>首页</b></a></li>
+                    <li>
+						<a href="../gjx/index.html">工具箱</a>
+						<ul>
+                            <li><a href="../gjx/calc/index.html">计算器</a></li>
+                            <li><a href="#">工具2</a></li>
+                        </ul>
+					</li>
+                    <li><a href="index.html">看吧</a></li>
+                    <li><a href="#">一级菜单</a></li>
+                    <li><a href="#">一级菜单</a></li>
+                    <li>
+                        <a href="#">其它</a>
+                        <ul>
+                            <li><a href="../old/index.html">回旧站</a></li>
+                            <li><a href="../gxrz.html">更新日志</a></li>
+                        </ul>
+                    </li>        
+                      </ul>
+                    </center>      
+            </div>
+
+
+<body>
+
+<body background="../../../bj_xc.jpg">
+
+<p>导航栏空间</p>
+
+<h1><p style="font-family:kaiti;color:Ivory">欢迎您访问刘润凌的小站(*^▽^*)</p></h1>
+
+<h2><p style="font-family:kaiti;color:Lavender">刘润凌看吧</p></h2>
+<h3><i><p style="font-family:华文行楷;color:Lavender">&ensp;&ensp;&ensp;&ensp;&ensp;——笑话-1    (20210409期，第一期)</p></i></h3>
+
+<br />
+
+<h3><p style="font-family:华文行楷;color:Lavender">· 本笑话根据当天真实事件写出，几乎无虚构成分</p></h3>
+<h3><p style="font-family:微软雅黑;color:Lavender">今天第一节课是音乐。班里电脑Win7，office2007。老师PPT里的音乐每个班都要重新插入一下。随后老师脱口而出：这两天这玩意<u>插</u>过5,6次了。唉~😜<br />	第二节语文。老师讲<u>插叙</u>。而且拿<u>黄色粉笔</u>写🙃<br />		第三节英语，学Franklin英语动画。老师问：看懂了吗？我们：看懂了！老师：对啊，光看动画都看得懂，看字看细节的有几个？就是拿个<u>日语</u>的都看得懂！😍还有下课时，老师：注意（作业平台名）上的<u>学习资料</u>哦~一定要看！<br />	</p></h3>
+
+<script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+<script src="https://lab.magiconch.com/nbnhhsh/nbnhhsh.user.js"></script>
+
+
+<!浮动点线特效>
+<script>
+!function(){
+ function n(n,e,t){
+ return n.getAttribute(e)||t
+ }
+ function e(n){
+ return document.getElementsByTagName(n)
+ }
+ function t(){
+ var t=e("script"),o=t.length,i=t[o-1];
+ return{
+ l:o,z:n(i,"zIndex",-1),o:n(i,"opacity",.5),c:n(i,"color","187,255,255"),n:n(i,"count",99)
+ }
+ }
+  
+ function o(){
+ a=m.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,
+ c=m.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight
+ }
+ function i(){
+ r.clearRect(0,0,a,c);
+ var n,e,t,o,m,l;
+ s.forEach(function(i,x){
+ for(i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>a||i.x<0?-1:1,i.ya*=i.y>c||i.y<0?-1:1,r.fillRect(i.x-.5,i.y-.5,1,1),e=x+1;e<u.length;e++)n=u[e],
+ null!==n.x&&null!==n.y&&(o=i.x-n.x,m=i.y-n.y,
+ l=o*o+m*m,l<n.max&&(n===y&&l>=n.max/2&&(i.x-=.03*o,i.y-=.03*m),
+ t=(n.max-l)/n.max,r.beginPath(),r.lineWidth=t/2,r.strokeStyle="rgba("+d.c+","+(t+.2)+")",r.moveTo(i.x,i.y),r.lineTo(n.x,n.y),r.stroke()))
+ }),
+ x(i)
+ }
+ var a,c,u,m=document.createElement("canvas"),
+ d=t(),l="c_n"+d.l,r=m.getContext("2d"),
+x=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||
+ function(n){
+ window.setTimeout(n,1e3/45)
+ },
+ w=Math.random,y={x:null,y:null,max:2e4};m.id=l,m.style.cssText="position:fixed;top:0;left:0;z-index:"+d.z+";opacity:"+d.o,e("body")[0].appendChild(m),o(),window.οnresize=o,
+ window.onmousemove=function(n){
+ n=n||window.event,y.x=n.clientX,y.y=n.clientY
+ },
+ window.onmouseout=function(){
+ y.x=null,y.y=null
+ };
+ for(var s=[],f=0;d.n>f;f++){
+ var h=w()*a,g=w()*c,v=2*w()-1,p=2*w()-1;s.push({x:h,y:g,xa:v,ya:p,max:6e3})
+ }
+ u=s.concat([y]),
+ setTimeout(function(){i()},100) 
+ }();
+ </script>
+
+
+
+<!点击出爱心特效>
+<script type="text/javascript">
+
+(function(window,document,undefined){
+        var hearts = [];
+        window.requestAnimationFrame = (function(){
+                return window.requestAnimationFrame || 
+                           window.webkitRequestAnimationFrame ||
+                           window.mozRequestAnimationFrame ||
+                           window.oRequestAnimationFrame ||
+                           window.msRequestAnimationFrame ||
+                           function (callback){
+                                   setTimeout(callback,1000/60);
+                           }
+        })();
+        init();
+        function init(){
+                css(".heart{width: 10px;height: 10px;position: fixed;background: #f00;transform: rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);}.heart:after,.heart:before{content: '';width: inherit;height: inherit;background: inherit;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;position: absolute;}.heart:after{top: -5px;}.heart:before{left: -5px;}");
+                attachEvent();
+                gameloop();
+        }
+        function gameloop(){
+                for(var i=0;i<hearts.length;i++){
+                    if(hearts[i].alpha <=0){
+                            document.body.removeChild(hearts[i].el);
+                            hearts.splice(i,1);
+                            continue;
+                    }
+                    hearts[i].y--;
+                    hearts[i].scale += 0.004;
+                    hearts[i].alpha -= 0.013;
+                    hearts[i].el.style.cssText = "left:"+hearts[i].x+"px;top:"+hearts[i].y+"px;opacity:"+hearts[i].alpha+";transform:scale("+hearts[i].scale+","+hearts[i].scale+") rotate(45deg);background:"+hearts[i].color;
+            }
+            requestAnimationFrame(gameloop);
+        }
+        function attachEvent(){
+                var old = typeof window.onclick==="function" && window.onclick;
+                window.onclick = function(event){
+                        old && old();
+                        createHeart(event);
+                }
+        }
+        function createHeart(event){
+            var d = document.createElement("div");
+            d.className = "heart";
+            hearts.push({
+                    el : d,
+                    x : event.clientX - 5,
+                    y : event.clientY - 5,
+                    scale : 1,
+                    alpha : 1,
+                    color : randomColor()
+            });
+            document.body.appendChild(d);
+    }
+    function css(css){
+            var style = document.createElement("style");
+                style.type="text/css";
+                try{
+                    style.appendChild(document.createTextNode(css));
+                }catch(ex){
+                    style.styleSheet.cssText = css;
+                }
+                document.getElementsByTagName('head')[0].appendChild(style);
+    }
+        function randomColor(){
+                return "rgb("+(~~(Math.random()*255))+","+(~~(Math.random()*255))+","+(~~(Math.random()*255))+")";
+        }
+})(window,document);
+
+</script>
+
+</body>
+</html>

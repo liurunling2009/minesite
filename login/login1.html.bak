@@ -1,0 +1,8 @@
+<html>
+<meta charset='UTF-8'>
+<form action="usercentre.html" method="get">
+  <p>用户名: <input type="text" name="un" /></p>
+  <p>密码: <input type="text" name="pw" /></p>
+  <input type="submit" value="提交" />
+</form>
+</html>
