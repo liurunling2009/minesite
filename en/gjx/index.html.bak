@@ -3,23 +3,11 @@
 <html lang="zh-CN">
 <meta charset="utf-8">
 <head>
-<meta name="keywords" content="michael,liurunling,刘润凌,minesite.xyz,minesite,刘润凌的网站">
+<meta name="keywords" content="liurunling,刘润凌,minesite.xyz,minesite,刘润凌的网站">
 
-
-<!搜索引擎收录代码>
-<!必应>
 <meta name="msvalidate.01" content="5715B575B9E13D070160360E187BD045" />
-<!-- Clarity tracking code for http://www.minesite.xyz/ -->
-<script>
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "55oll9w8lf");
-</script>
 
-
-<title>刘润凌的网站</title>
+<title>工具箱——刘润凌的网站</title>
 </head>
 
 <style type="text/css">
@@ -94,31 +82,24 @@
             <div class="top">
                    <center> 
                     <ul>
-                    <li><a href="index.html"><b>home</b></a></li>
+                    <li><a href="../index.html"><b>首页</b></a></li>
                     <li>
-						<a href="gjx/index.html">tool box</a>
+						<a href="index.html">工具箱</a>
 						<ul>
-                            <li><a href="gjx/calc/index.html">calculator</a></li>
-                            <li><a href="#">blank</a></li>
+                            <li><a href="calc/index.html">计算器</a></li>
+                            <li><a href="#">工具2</a></li>
                         </ul>
 					</li>
-                    <li><a href="kanba/index.html">kanba-read or watch someting</a></li>
-                    <li><a href="game/index.html">games</a>
-						<ul>
-					        <li><a href="game/pacman/index.html">pacman</a></li>
-                            <li><a href="#">blank</a></li>
-                        </ul>
-					</li>
-                    <li><a href="joke/index.html">jokes</a></li>
+                    <li><a href="#">一级菜单</a></li>
+                    <li><a href="#">一级菜单</a></li>
+                    <li><a href="#">一级菜单</a></li>
                     <li>
-                        <a href="#">others</a>
+                        <a href="#">其它</a>
                         <ul>
-                            <li><a href="../old/index.html">go back to the old site(only offer Chinese)</a></li>
-                            <li><a href="gxrz.html">update log</a></li>
+                            <li><a href="../old/index.html">回旧站</a></li>
+                            <li><a href="gxrz.html">更新日志</a></li>
                         </ul>
-                    </li>  
-					<li><a href="login/login.html">login</a></li>
-					<li><a href="../index.html">中文</a></li>
+                    </li>        
                       </ul>
                     </center>      
             </div>
@@ -126,11 +107,15 @@
 
 <body>
 
-<body background="bj_xc.jpg">
+<body background="../bj_xc.jpg">
 
 <p>导航栏空间</p>
 
-<h1><p style="font-family:freestyle script;color:Ivory">Welcome to Michael's site! (*^▽^*)</p></h1>
+<h1><p style="font-family:kaiti;color:Ivory">欢迎您访问刘润凌的小站(*^▽^*)</p></h1>
+
+<h2><p style="font-family:songti;color:Lavender">实用在线工具箱</p></h2>
+
+<h4><p style="font-family:songti;color:Lavender"><a href="calc/index.html" target="_blank">计算器</a></p></h4>
 
 
 
